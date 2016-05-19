@@ -7,7 +7,7 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
     params.each do |key val|
-      puts "#{key}\t#{val}"
+      puts "#{key} #{val}"
     end
     params['result'].each do |msg|
       request_content = {
