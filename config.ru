@@ -8,7 +8,7 @@ class App < Sinatra::Base
     params = JSON.parse(request.body.read)
     
     params.each do |key|
-      puts key
+      p key
     end
     params['result'].each do |msg|
       request_content = {
