@@ -7,7 +7,7 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
     
-    params.each do |key|
+    params['result'][0]['content'].each do |key|
       p key
     end
     
@@ -18,7 +18,7 @@ class App < Sinatra::Base
         eventType: "138311608800106203", # Fixed value
         content: msg['content']
       }
-      p request_content
+     #p request_content
       
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
       content_json = request_content.to_json
