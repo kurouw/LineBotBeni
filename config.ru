@@ -6,8 +6,8 @@ require 'rest-client'
 class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
-    params.each do |t|
-      p t
+    params.each do |key val|
+      puts "#{key}\t#{val}"
     end
     params['result'].each do |msg|
       request_content = {
