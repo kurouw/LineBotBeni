@@ -10,6 +10,7 @@ class App < Sinatra::Base
     params.each do |key|
       p key
     end
+    
     params['result'].each do |msg|
       request_content = {
         to: [msg['content']['from']],
@@ -17,7 +18,8 @@ class App < Sinatra::Base
         eventType: "138311608800106203", # Fixed value
         content: msg['content']
       }
-
+      p request_content
+      
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
       content_json = request_content.to_json
 
