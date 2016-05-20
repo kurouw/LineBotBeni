@@ -6,11 +6,7 @@ require 'rest-client'
 class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
-    
-    params['result'][0]['content'].each do |key|
-      p key
-    end
-    
+        
     params['result'].each do |msg|
       
       if !msg['content']['location'].nil? 
@@ -35,6 +31,10 @@ class App < Sinatra::Base
                         'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
                         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
                       })
+    end
+    
+    params['result'][0]['content'].each do |key|
+      p key
     end
 
     "OK"
