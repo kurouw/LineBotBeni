@@ -12,9 +12,11 @@ class App < Sinatra::Base
     end
     
     params['result'].each do |msg|
-      if !msg['content']['location']
+      
+      if !msg['content']['location'].nil? 
         msg['content']['text'] = msg['content']['location']['address']
       end
+      
       request_content = {
         to: [msg['content']['from']],
         toChannel: 1383378250, # Fixed  value
