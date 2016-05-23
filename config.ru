@@ -12,11 +12,9 @@ class App < Sinatra::Base
       if !msg['content']['location'].nil? 
         msg['content']['text'] = msg['content']['location']['address']
       end
-
-#      if msg['content']['contentType'] == 2
- #       msg['content']['text'] = "hello".to_json
-  #    end
       
+      if msg['content']['contentType'] == 2
+        msg['content']['text'] = "hello".to_json
       end
       
       request_content = {
@@ -38,12 +36,12 @@ class App < Sinatra::Base
 
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
-    end
+  end
     
     params['result'][0]['content'].each do |key|
       p key
     end
-
+    
     "OK"
   end
 end
