@@ -1,7 +1,9 @@
+# coding: utf-8
 require 'bundler/setup'
 require 'sinatra/base'
 require 'json'
 require 'rest-client'
+require './main3.rb'
 
 class App < Sinatra::Base
   post '/linebot/callback' do
@@ -17,9 +19,14 @@ class App < Sinatra::Base
         msg['content']['text'] = msg['content']['location']['address']
       end
       
-      if msg['content']['contentType'] == 2
-        msg['content']['originalContentUrl'] = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
-        msg['content']['previewImageUrl'] = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+      if msg['content']['text'] == "shop"
+        img1, img2 = GetImage("福島","一箕町")
+        if img1 == "chirashi"
+          msg['content']['text'] = "今日のチラシはないよ！"
+        else
+        msg['content']['originalContentUrl'] = img1 #"https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+          msg['content']['previewImageUrl'] = img2 #"https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+        end
       end
       
       request_content = {

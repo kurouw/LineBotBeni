@@ -7,7 +7,10 @@ GEM
       domain_name (~> 0.5)
     httpclient (2.8.0)
     mime-types (2.99.1)
+    mini_portile2 (2.0.0)
     netrc (0.11.0)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -29,6 +32,7 @@ PLATFORMS
 
 DEPENDENCIES
   httpclient
+  nokogiri
   rest-client
   sinatra
 
