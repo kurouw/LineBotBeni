@@ -7,6 +7,12 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
 
+    image  = {
+      contentType: 2
+      originalContentUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+      previewImageUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+    }
+    
     params['result'][0]['content'].each do |key|
       p key
     end
@@ -18,7 +24,7 @@ class App < Sinatra::Base
       end
       
       if msg['content']['contentType'] == 2
-        msg['content']['text'] = "hello".to_json
+        msg['content'] = image
       end
       
       request_content = {
