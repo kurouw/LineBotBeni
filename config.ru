@@ -8,8 +8,8 @@ class App < Sinatra::Base
     params = JSON.parse(request.body.read)
 
     image  = {
-      contentType: 2
-      originalContentUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+      contentType: 2,
+      originalContentUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg",
       previewImageUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
     }
     
