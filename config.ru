@@ -20,7 +20,7 @@ class App < Sinatra::Base
       end
       
       if msg['content']['text'] == "shop"
-        img1, img2 = GetImage("福島","一箕町")
+        img1, img2 = GetImages("福島","一箕町")
         if img1 == "chirashi"
           msg['content']['text'] = "今日のチラシはないよ！"
         else
