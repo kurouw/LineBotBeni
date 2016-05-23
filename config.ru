@@ -8,7 +8,7 @@ require './main3.rb'
 class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
-#log    
+
 =begin
     params['result'][0]['content'].each do |key|
       p key
