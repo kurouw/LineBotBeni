@@ -12,6 +12,11 @@ class App < Sinatra::Base
       if !msg['content']['location'].nil? 
         msg['content']['text'] = msg['content']['location']['address']
       end
+
+      if msg['content']['contentType']==2
+        msg['content']['text'] = "hello"
+      end
+      end
       
       request_content = {
         to: [msg['content']['from']],
