@@ -13,9 +13,10 @@ class App < Sinatra::Base
         msg['content']['text'] = msg['content']['location']['address']
       end
 
-      if msg['content']['contentType'] == 2
-        msg['content']['text'] = "hello".to_json
-      end
+#      if msg['content']['contentType'] == 2
+ #       msg['content']['text'] = "hello".to_json
+  #    end
+      
       end
       
       request_content = {
