@@ -18,7 +18,6 @@ class App < Sinatra::Base
       end
       
       if msg['content']['contentType'] == 2
-        msg['content']['text'] = "hello".to_json
         msg['content']['originalContentUrl'] = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
         msg['content']['previewImageUrl'] = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
       end
