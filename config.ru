@@ -9,9 +9,11 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
     
+=begin
     params['result'][0]['content'].each do |key|
       p key
     end
+=end
     
     params['result'].each do |msg|
       
@@ -45,14 +47,16 @@ class App < Sinatra::Base
       
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
       content_json = request_content.to_json
-
+      
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
-  end
-    
-    params['result'][0]['content'].each do |key|
-      p key
     end
+    
+=begin    
+       params['result'][0]['content'].each do |key|
+         p key
+       end
+=end
     
     "OK"
   end
