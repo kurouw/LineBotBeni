@@ -50,6 +50,7 @@ class App < Sinatra::Base
       
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
+      RestClient.post(endpoint_uri, content_json,request_header)
     end
     
 =begin    
