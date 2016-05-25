@@ -6,15 +6,36 @@ require 'rest-client'
 require './main3.rb'
 
 class App < Sinatra::Base
+
+  before do
+      request_header = {
+        'Content-Type' => 'application/json; charset=UTF-8',
+        'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
+        'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
+        'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
+      }
+    
+      endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+
+      content = {
+        toType: 1,
+        contentType: 1,
+        text: "おほよう"
+      }
+      requestContent = {
+        to: ["u26b6b8a0feb3a295f46866ebeabd488a"],
+        toChannel: 1383378250, # Fixed  value
+        eventType: "138311608800106203", # Fixed value
+        content: content
+      }
+      cjson = requestContent.to_json
+      
+      RestClient.proxy = ENV["FIXIE_URL"]
+      RestClient.post(endpoint_uri, contentContent,request_header)
+  end
+  
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
-
-=begin
-    params['result'][0]['content'].each do |key|
-      p key
-    end
-=end
-    
     params['result'].each do |msg|
       
       if !msg['content']['location'].nil? 
@@ -37,28 +58,12 @@ class App < Sinatra::Base
         eventType: "138311608800106203", # Fixed value
         content: msg['content']
       }
-
-      request_header = {
-        'Content-Type' => 'application/json; charset=UTF-8',
-        'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
-        'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
-        'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
-      }
-      
-      endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+     
       content_json = request_content.to_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
-      RestClient.post(endpoint_uri, content_json,request_header)
     end
-    
-=begin    
-       params['result'][0]['content'].each do |key|
-         p key
-       end
-=end
-    
     "OK"
   end
 end
