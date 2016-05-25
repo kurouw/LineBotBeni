@@ -66,13 +66,12 @@ end
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
       }    
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+
+      p content_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
     end
-
-    p content_json
-    
     "OK"
   end
 end
