@@ -56,7 +56,7 @@ class App < Sinatra::Base
       cjson2 = requestContent2.to_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
-      if(!f)
+      if(f)
         RestClient.post(ep_uri,cjson1,push_header)
       else
         RestClient.post(ep_uri,cjson1,push_header)
