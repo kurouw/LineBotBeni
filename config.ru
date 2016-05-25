@@ -70,7 +70,7 @@ end
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
     end
-    content_json.each do |msg|
+    request_content.each do |msg|
       p msg
       puts ""
     end
