@@ -13,10 +13,8 @@ class App < Sinatra::Base
         'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
         'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
-      }
-    
+      }    
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
-
       content = {
         toType: 1,
         contentType: 1,
@@ -31,7 +29,7 @@ class App < Sinatra::Base
       cjson = requestContent.to_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
-      RestClient.post(endpoint_uri, contentContent,request_header)
+      RestClient.post(endpoint_uri,cjson,request_header)
   end
   
   post '/linebot/callback' do
