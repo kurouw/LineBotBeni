@@ -71,8 +71,10 @@ end
       RestClient.post(endpoint_uri, content_json,request_header)
     end
     params['result'][0]['content'].each do |msg|
-      puts msg
+      p msg
+      puts ""
     end
+
     "OK"
   end
 end
