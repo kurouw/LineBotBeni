@@ -6,7 +6,7 @@ require 'rest-client'
 require './main3.rb'
 
 class App < Sinatra::Base
-=begin
+
   before do
       push_header = {
         'Content-Type' => 'application/json; charset=UTF-8',
@@ -16,7 +16,7 @@ class App < Sinatra::Base
       }    
       ep_uri = 'https://trialbot-api.line.me/v1/events'
       requestContent = {
-        to: ["u26b6b8a0feb3a295f46866ebeabd488a"],
+        to: ["udfcd43011e0c6fa0933012f10993560e"],
         toChannel: 1383378250, # Fixed  value
         eventType: "138311608800106203", # Fixed value
         content: {contentType: 1,
@@ -29,7 +29,7 @@ class App < Sinatra::Base
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(ep_uri,cjson,push_header)
 end
-=end
+
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
     params['result'].each do |msg|
