@@ -30,10 +30,10 @@ class App < Sinatra::Base
         to: ["udfcd43011e0c6fa0933012f10993560e"],
         toChannel: 1383378250, # Fixed  value
         eventType: "138311608800106203", # Fixed value
-        content: {contentType: conT
+        content: {contentType: conT,
                   toType: 1,
                   text: text,
-                  originalContentUrl: oUrl
+                  originalContentUrl: oUrl,
                   previewImageUrl: pIUrl
                  }
       }
