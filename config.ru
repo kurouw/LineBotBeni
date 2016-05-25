@@ -8,14 +8,13 @@ require './main3.rb'
 class App < Sinatra::Base
 
   before do
-      @request_header = {
+      push_header = {
         'Content-Type' => 'application/json; charset=UTF-8',
         'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
         'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
       }    
-      @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
-=begin
+      ep_uri = 'https://trialbot-api.line.me/v1/events'
       content = {
         toType: 1,
         contentType: 1,
@@ -30,8 +29,7 @@ class App < Sinatra::Base
       cjson = requestContent.to_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
-      RestClient.post(endpoint_uri,cjson,request_header)
-=end
+      RestClient.post(ep_uri,cjson,push_header)
 end
   
   post '/linebot/callback' do
@@ -59,10 +57,17 @@ end
         content: msg['content']
       }
      
-      content_json = @request_content.to_json
+      content_json = request_content.to_json
+      request_header = {
+        'Content-Type' => 'application/json; charset=UTF-8',
+        'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
+        'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
+        'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
+      }    
+      endpoint_uri = 'https://trialbot-api.line.me/v1/events'
       
       RestClient.proxy = ENV["FIXIE_URL"]
-      RestClient.post(@endpoint_uri, content_json,@request_header)
+      RestClient.post(endpoint_uri, content_json,request_header)
     end
     "OK"
   end
