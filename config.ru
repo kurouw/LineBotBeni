@@ -9,6 +9,7 @@ class App < Sinatra::Base
 
   before do
     img1, img2 = GetImages("福島","一箕町")
+    puts img1,img2
     f = false
     if img1 == "chirashi"
       conT = 1
