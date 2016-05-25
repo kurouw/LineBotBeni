@@ -70,9 +70,10 @@ def GetImages(pref,shop)
     image2[-5] = "2"
   end
 
-  if !image.nil? && !image2.nil?
+  if image.nil? && image2.nil?
     return "chirashi","not"
   else
+    puts image,image2
     return image,image2
   end
 end
