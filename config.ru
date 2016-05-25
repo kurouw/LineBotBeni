@@ -15,28 +15,17 @@ class App < Sinatra::Base
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
       }    
       ep_uri = 'https://trialbot-api.line.me/v1/events'
-      content = {
-        toType: 1,
-        contentType: 1,
-        from: "udfcd43011e0c6fa0933012f10993560e",
-        location: nil,
-        id: "4338702023774",
-        to: ["u26b6b8a0feb3a295f46866ebeabd488a"],
-        text: "おほよう",
-        contentMetadata:
-          {
-            AT_RECV_MODE: "2",
-            SKIP_BADGE_COUNT: true,
-          },
-        deloveredTime
-      }
       requestContent = {
         to: ["u26b6b8a0feb3a295f46866ebeabd488a"],
         toChannel: 1383378250, # Fixed  value
         eventType: "138311608800106203", # Fixed value
-        content: content
+        content: {contentType: 1,
+                  toType: 1,
+                  text: "おほよう"
+                 }
       }
-      cjson = requestContent.to_json      
+      cjson = requestContent.to_json
+      
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(ep_uri,cjson,push_header)
 end
@@ -80,6 +69,9 @@ end
       
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri, content_json,request_header)
+    end
+    params['result'][0]['content'].each do |msg|
+      puts msg
     end
     "OK"
   end
