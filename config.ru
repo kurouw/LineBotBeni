@@ -15,6 +15,7 @@ class App < Sinatra::Base
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
       }    
       endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+=begin
       content = {
         toType: 1,
         contentType: 1,
@@ -30,7 +31,8 @@ class App < Sinatra::Base
       
       RestClient.proxy = ENV["FIXIE_URL"]
       RestClient.post(endpoint_uri,cjson,request_header)
-  end
+=end
+end
   
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
