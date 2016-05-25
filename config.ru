@@ -43,7 +43,8 @@ end
         if img1 == "chirashi"
           msg['content']['text'] = "今日のチラシはないよ！"
         else
-        msg['content']['originalContentUrl'] = img1 #"https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+          msg['content']['contetType'] = 2
+          msg['content']['originalContentUrl'] = img1 #"https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
           msg['content']['previewImageUrl'] = img2 #"https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
         end
       end
