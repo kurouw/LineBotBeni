@@ -8,13 +8,13 @@ require './main3.rb'
 class App < Sinatra::Base
 
   before do
-      request_header = {
+      @request_header = {
         'Content-Type' => 'application/json; charset=UTF-8',
         'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
         'X-Line-ChannelSecret' => ENV["LINE_CHANNEL_SECRET"],
         'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
       }    
-      endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+      @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
 =begin
       content = {
         toType: 1,
@@ -59,10 +59,10 @@ end
         content: msg['content']
       }
      
-      content_json = request_content.to_json
+      content_json = @request_content.to_json
       
       RestClient.proxy = ENV["FIXIE_URL"]
-      RestClient.post(endpoint_uri, content_json,request_header)
+      RestClient.post(@endpoint_uri, content_json,@request_header)
     end
     "OK"
   end
