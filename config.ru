@@ -21,6 +21,7 @@ class App < Sinatra::Base
         eventType: "138311608800106203", # Fixed value
         content: {contentType: 1,
                   toType: 1,
+                  text: "ma",
                   originalContentUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg",
                   previewImageUrl: "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
 
