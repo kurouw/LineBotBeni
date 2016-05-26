@@ -17,7 +17,7 @@ class App < Sinatra::Base
     }
     @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
     
-    if(Time.now.hour == 8)
+    if(Time.now.hour == 8 && min == 0)
         
         toMe = ENV["MY_ID"]
         img1, img2 = GetImages("福島","一箕町")
