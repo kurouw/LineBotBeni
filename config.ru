@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'sinatra/base'
 require 'json'
 require 'rest-client'
-require './main3.rb'
+require './beni.rb'
 
 class App < Sinatra::Base
 
