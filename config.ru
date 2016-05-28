@@ -95,8 +95,10 @@ class App < Sinatra::Base
 #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['opType'] == @add_friend_opType)
       # add_friend_event
-      p (params['result'][0]['content']['params'][0])
-#-----------------
+      p params['result'][0]['content']['params'][0]
+    #-----------------
+    elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['opType'] == @block_friend_opType)
+      puts "hoge2"
     else
       p "hoge"
       params['result'].each do |msg|
