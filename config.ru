@@ -5,7 +5,7 @@ require 'json'
 require 'rest-client'
 require './beni.rb'
 #require './users.rb'
-
+=begin
 def add_friend_event(toId)
   text = "友達追加してくれてありがとう！"
   add_friend_send = {
@@ -19,8 +19,8 @@ def add_friend_event(toId)
   }
   send_information = add_friend_send.to_json
   RestClient.post(@endpoint_uri,send_information,@request_header)
-  
 end
+=end
 
 class App < Sinatra::Base
   before do    
@@ -95,7 +95,7 @@ class App < Sinatra::Base
 #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result']['opType'] == @add_friend_opType)
       puts params['result'][0]['content']['params'][0]
-      add_friend_event(params['result'][0]['content']['params'][0])
+     # add_friend_event(params['result'][0]['content']['params'][0])
     end
 #-----------------
     
