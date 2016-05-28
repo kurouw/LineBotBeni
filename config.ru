@@ -16,9 +16,9 @@ def add_friend_event(toId)
               toType: 1,
               text: text
              }
-   send_information =  add_friend_send.to_json
-    RestClient.post(@endpoint_uri,send_information,@request_header)
   }
+  send_information = add_friend_send.to_json
+  RestClient.post(@endpoint_uri,send_information,@request_header)
   
 end
 
