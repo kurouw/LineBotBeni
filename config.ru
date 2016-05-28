@@ -98,9 +98,9 @@ class App < Sinatra::Base
       p params['result'][0]['content']['params'][0]
     #-----------------
     elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['opType'] == @block_friend_opType)
-      puts "hoge2"
+      p "block or cancel block"
     else
-      p "hoge"
+      p "get request"
       params['result'].each do |msg|
         
         if !msg['content']['location'].nil? 
