@@ -5,7 +5,7 @@ require 'json'
 require 'rest-client'
 require './beni.rb'
 #require './users.rb'
-=begin
+
 def add_friend_event(toId)
   text = "友達追加してくれてありがとう！"
   add_friend_send = {
@@ -20,7 +20,7 @@ def add_friend_event(toId)
   send_information = add_friend_send.to_json
   RestClient.post(@endpoint_uri,send_information,@request_header)
 end
-=end
+
 
 class App < Sinatra::Base
   before do    
@@ -33,6 +33,7 @@ class App < Sinatra::Base
     @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
     @add_friend_eventType = "138311609100106403"
     @add_friend_opType = 4
+    @block_friend_opType = 8
     
     if(Time.now.hour == 8 && Time.now.min == 0)
       toMe = ENV["MY_ID"]
@@ -95,7 +96,7 @@ class App < Sinatra::Base
     #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
-      p params['result'][0]['content']['params'][0]
+      add_friend_event(params['result'][0]['content']['params'][0])
 
     #block
     #-----------------
