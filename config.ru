@@ -4,10 +4,11 @@ require 'sinatra/base'
 require 'json'
 require 'rest-client'
 require './beni.rb'
+require './const.rb'
 #require './users.rb'
 
 class App < Sinatra::Base
- 
+=begin
   def add_friend_event(toId)
     text = "友達追加してくれてありがとう！"
     add_friend_send = {
@@ -20,11 +21,12 @@ class App < Sinatra::Base
                }
     }
     send_information = add_friend_send.to_json
-    RestClient.post(@endpoint_uri,send_information,@request_header)
+    RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEADER)
   end
-
+=end
   
-  before do    
+  before do
+=begin
     @request_header = {
       'Content-Type' => 'application/json; charset=UTF-8',
       'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
@@ -33,12 +35,13 @@ class App < Sinatra::Base
     }
     @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
     @add_friend_eventType = "138311609100106403"
+=end
     @add_friend_opType = 4
     @block_friend_opType = 8
     
     if(Time.now.hour == 8 && Time.now.min == 0)
       toMe = ENV["MY_ID"]
-      
+=begin     
       img1, img2 = get_images("福島","一箕町")
       puts img1,img2
       f = false
@@ -87,6 +90,7 @@ class App < Sinatra::Base
         RestClient.post(@endpoint_uri,cjson1,@request_header)
         RestClient.post(@endpoint_uri,cjson2,@request_header)
       end
+=end
     end
   end
   
@@ -126,7 +130,8 @@ class App < Sinatra::Base
         content_json = request_content.to_json
         
         RestClient.proxy = ENV["FIXIE_URL"]
-        RestClient.post(@endpoint_uri, content_json,@request_header)
+#        RestClient.post(@endpoint_uri, content_json,@request_header)
+        RestClient.post(Settings::ENDPOINT_URI,content_json,Settings::REQUEST_HEADER)
       end
     end
     "OK"
