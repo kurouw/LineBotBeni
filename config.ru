@@ -98,6 +98,7 @@ class App < Sinatra::Base
     # add_friend_event(params['result'][0]['content']['params'][0]
 #-----------------
     else
+      puts "hoge"
       params['result'].each do |msg|
         
         if !msg['content']['location'].nil? 
