@@ -8,7 +8,7 @@ require './const.rb'
 #require './users.rb'
 
 class App < Sinatra::Base
-
+=begin
   def add_friend_event(toId)
     text = "友達追加してくれてありがとう！"
     add_friend_send = {
@@ -23,7 +23,7 @@ class App < Sinatra::Base
     send_information = add_friend_send.to_json
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
   end
-
+=end
   
   before do
     @add_friend_opType = 4
@@ -90,7 +90,7 @@ class App < Sinatra::Base
     #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
-      add_friend_event(params['result'][0]['content']['params'][0])
+    #  add_friend_event(params['result'][0]['content']['params'][0])
 
     #block
     #-----------------
@@ -119,7 +119,6 @@ class App < Sinatra::Base
         content_json = request_content.to_json
         
         RestClient.proxy = ENV["FIXIE_URL"]
-#        RestClient.post(@endpoint_uri, content_json,@request_header)
         RestClient.post(Settings::ENDPOINT_URI,content_json,Settings::REQUEST_HEANDER)
       end
     end
