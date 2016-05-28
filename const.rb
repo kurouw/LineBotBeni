@@ -6,4 +6,7 @@ class Settings
     'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
   }
   ENDPOINT_URI = 'https://trialbot-api.line.me/v1/events'
+
+  REQUEST_HEANDER.freeze
+  ENDPOINT_URI.freeze
 end

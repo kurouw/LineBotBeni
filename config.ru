@@ -8,7 +8,7 @@ require './const.rb'
 #require './users.rb'
 
 class App < Sinatra::Base
-=begin
+
   def add_friend_event(toId)
     text = "友達追加してくれてありがとう！"
     add_friend_send = {
@@ -23,9 +23,10 @@ class App < Sinatra::Base
     send_information = add_friend_send.to_json
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
   end
-=end
+
   
   before do
+    @add_friend_eventType = "138311609100106403"
     @add_friend_opType = 4
     @block_friend_opType = 8
     
@@ -87,12 +88,12 @@ class App < Sinatra::Base
     params = JSON.parse(request.body.read)
 
 
-    if (params['result'][0]['eventType'] == @add_friend_eventType)# && params['result'][0]['content']['opType'] == @add_friend_opType)
+    if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
-    #  add_friend_event(params['result'][0]['content']['params'][0])
-
-#    elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
- #     p "block"
+      add_friend_event(params['result'][0]['content']['params'][0])
+      
+    elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
+      p "block"
       
     else
       p "get request"
