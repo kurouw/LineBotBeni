@@ -94,11 +94,11 @@ class App < Sinatra::Base
     #友達追加
 #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result']['opType'] == @add_friend_opType)
-      puts params['result'][0]['content']['params'][0]
+      p params['result'][0]['content']['params'][0]
     # add_friend_event(params['result'][0]['content']['params'][0]
 #-----------------
     else
-      puts "hoge"
+      p "hoge"
       params['result'].each do |msg|
         
         if !msg['content']['location'].nil? 
