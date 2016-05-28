@@ -93,10 +93,9 @@ class App < Sinatra::Base
 
     #友達追加
 #-----------------
-    if (params['result'][0]['eventType'] == @add_friend_eventType)# && params['result']['opType'] == @add_friend_opType)
-    #p params['result'][0]['content']['params'][0]
-      p "hoge"
-    # add_friend_event(params['result'][0]['content']['params'][0]
+    if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['opType'] == @add_friend_opType)
+      # add_friend_event
+      p (params['result'][0]['content']['params'][0])
 #-----------------
     else
       p "hoge"
