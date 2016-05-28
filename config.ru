@@ -6,10 +6,24 @@ require 'rest-client'
 require './beni.rb'
 #require './users.rb'
 
-class App < Sinatra::Base
+def add_friend_event(toId)
+  text = "友達追加してくれてありがとう！"
+  add_friend_send = {
+    to: [toId],
+    toChannel: 1383378250, # Fixed  value
+    eventType: "138311608800106203", # Fixed value
+    content: {contentType: 1,
+              toType: 1,
+              text: text
+             }
+   send_information =  add_friend_send.to_json
+    RestClient.post(@endpoint_uri,send_information,@request_header)
+  }
+  
+end
 
-  before do
-    
+class App < Sinatra::Base
+  before do    
     @request_header = {
       'Content-Type' => 'application/json; charset=UTF-8',
       'X-Line-ChannelID' => ENV["LINE_CHANNEL_ID"],
@@ -17,11 +31,13 @@ class App < Sinatra::Base
       'X-Line-Trusted-User-With-ACL' => ENV["LINE_CHANNEL_MID"],
     }
     @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
+    @add_friend_eventType = "138311609100106403"
+    @add_friend_opType = 4
     
     if(Time.now.hour == 8 && Time.now.min == 0)
       toMe = ENV["MY_ID"]
       
-      img1, img2 = GetImages("福島","一箕町")
+      img1, img2 = get_images("福島","一箕町")
       puts img1,img2
       f = false
       if img1 == "chirashi"
@@ -75,7 +91,13 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
 
-    p params
+    #友達追加
+#-----------------
+    if (params['result'][0]['eventType'] == @add_friend_eventType && params['result']['opType'] == @add_friend_opType)
+      puts params['result'][0]['content']['params'][0]
+      add_friend_event(params['result'][0]['content']['params'][0])
+    end
+#-----------------
     
     params['result'].each do |msg|
       

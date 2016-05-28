@@ -5,7 +5,7 @@ require 'kconv'
 Bundler.require
 
 
-def GetImages(pref,shop)
+def get_images(pref,shop)
   #default
   url = 'http://www.yorkbeni.co.jp/store/fukusima/'
   
