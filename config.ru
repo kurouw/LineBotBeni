@@ -100,6 +100,9 @@ class App < Sinatra::Base
 #----------------
     else
       p "get request"
+
+      p params
+      
       params['result'].each do |msg|
         
         if !msg['content']['location'].nil? 
