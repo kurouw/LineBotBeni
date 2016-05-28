@@ -117,10 +117,7 @@ class App < Sinatra::Base
         content_json = request_content.to_json
         
         RestClient.proxy = ENV["FIXIE_URL"]
-        100.times do |i = 0|
-          p i
-          RestClient.post(Settings::ENDPOINT_URI,content_json,Settings::REQUEST_HEANDER)
-        end
+        RestClient.post(Settings::ENDPOINT_URI,content_json,Settings::REQUEST_HEANDER)
       end
     end
     "OK"
