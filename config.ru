@@ -8,7 +8,7 @@ require './const.rb'
 #require './users.rb'
 
 class App < Sinatra::Base
-
+#add_friend
   def add_friend_event(toId)
     text = "友達追加してくれてありがとう！"
     add_friend_send = {
@@ -24,7 +24,7 @@ class App < Sinatra::Base
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
   end
 
-  
+#start_server
   before do
     @add_friend_eventType = "138311609100106403"
     @add_friend_opType = 4
@@ -83,7 +83,8 @@ class App < Sinatra::Base
       end
     end
   end
-  
+
+#post callback
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
 
@@ -97,9 +98,6 @@ class App < Sinatra::Base
       
     else
       p "get request"
-
-      p params
-      
       params['result'].each do |msg|
         
         if !msg['content']['location'].nil? 
