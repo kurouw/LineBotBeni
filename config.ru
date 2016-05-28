@@ -86,18 +86,14 @@ class App < Sinatra::Base
   post '/linebot/callback' do
     params = JSON.parse(request.body.read)
 
-    #add friend or cancel block
-    #-----------------
-    if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
+
+    if (params['result'][0]['eventType'] == @add_friend_eventType)# && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
     #  add_friend_event(params['result'][0]['content']['params'][0])
 
-    #block
-    #-----------------
-    elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
-      p "block"
+#    elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
+ #     p "block"
       
-#----------------
     else
       p "get request"
 
