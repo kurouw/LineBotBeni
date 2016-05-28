@@ -101,7 +101,7 @@ class App < Sinatra::Base
 #-----------------
     elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['opType'] == @block_friend_opType)
       p "block or cancel block"
-      p params
+      p params['result'][0]['opType']
 #----------------
     else
       p "get request"
