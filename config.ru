@@ -6,23 +6,24 @@ require 'rest-client'
 require './beni.rb'
 #require './users.rb'
 
-def add_friend_event(toId)
-  text = "友達追加してくれてありがとう！"
-  add_friend_send = {
-    to: [toId],
-    toChannel: 1383378250, # Fixed  value
-    eventType: "138311608800106203", # Fixed value
-    content: {contentType: 1,
-              toType: 1,
-              text: text
-             }
-  }
-  send_information = add_friend_send.to_json
-  RestClient.post(@endpoint_uri,send_information,@request_header)
-end
-
-
 class App < Sinatra::Base
+ 
+  def add_friend_event(toId)
+    text = "友達追加してくれてありがとう！"
+    add_friend_send = {
+      to: [toId],
+      toChannel: 1383378250, # Fixed  value
+      eventType: "138311608800106203", # Fixed value
+      content: {contentType: 1,
+                toType: 1,
+                text: text
+               }
+    }
+    send_information = add_friend_send.to_json
+    RestClient.post(@endpoint_uri,send_information,@request_header)
+  end
+
+  
   before do    
     @request_header = {
       'Content-Type' => 'application/json; charset=UTF-8',
