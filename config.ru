@@ -4,6 +4,7 @@ require 'sinatra/base'
 require 'json'
 require 'rest-client'
 require './beni.rb'
+#require './users.rb'
 
 class App < Sinatra::Base
 
@@ -17,57 +18,58 @@ class App < Sinatra::Base
     }
     @endpoint_uri = 'https://trialbot-api.line.me/v1/events'
     
-    if(Time.now.hour == 8 && min == 0)
-        
-        toMe = ENV["MY_ID"]
-        img1, img2 = GetImages("福島","一箕町")
-        puts img1,img2
-        f = false
-        if img1 == "chirashi"
-          conT = 1
-          text  = "今日のチラシはないよ！"
-          f = true
-        else
-          conT = 2
-          oUrl1 = img1
-          pIUrl1 = img1
-          oUrl2 = img2
-          pIUrl2 = img2
-        end
-        
-        requestContent1 = {
-          to: [toMe],
-          toChannel: 1383378250, # Fixed  value
-          eventType: "138311608800106203", # Fixed value
-          content: {contentType: conT,
-                    toType: 1,
-                    text: text,
-                    originalContentUrl: oUrl1,
-                    previewImageUrl: pIUrl1
-                   }
-        }
-        requestContent2 = {
-          to: [toMe],
-          toChannel: 1383378250, # Fixed  value
-          eventType: "138311608800106203", # Fixed value
-          content: {contentType: conT,
-                    toType: 1,
-                    text: text,
-                    originalContentUrl: oUrl2,
-                    previewImageUrl: pIUrl2
-                   }
-        }
-        
-        cjson1 = requestContent1.to_json
-        cjson2 = requestContent2.to_json
-        
-        RestClient.proxy = ENV["FIXIE_URL"]
-        if(f)
-          RestClient.post(@endpoint_uri,cjson1,@request_header)
-        else
-          RestClient.post(@endpoint_uri,cjson1,@request_header)
-          RestClient.post(@endpoint_uri,cjson2,@request_header)
-        end
+    #if(Time.now.hour == 8 && min == 0)
+      if(Time.now.hour == 17 && min == 0)
+      
+      toMe = ENV["MY_ID"]
+      img1, img2 = GetImages("福島","一箕町")
+      puts img1,img2
+      f = false
+      if img1 == "chirashi"
+        conT = 1
+        text  = "今日のチラシはないよ！"
+        f = true
+      else
+        conT = 2
+        oUrl1 = img1
+        pIUrl1 = img1
+        oUrl2 = img2
+        pIUrl2 = img2
+      end
+
+      requestContent1 = {
+        to: [toMe],
+        toChannel: 1383378250, # Fixed  value
+        eventType: "138311608800106203", # Fixed value
+        content: {contentType: conT,
+                  toType: 1,
+                  text: text,
+                  originalContentUrl: oUrl1,
+                  previewImageUrl: pIUrl1
+                 }
+      }
+      requestContent2 = {
+        to: [toMe],
+        toChannel: 1383378250, # Fixed  value
+        eventType: "138311608800106203", # Fixed value
+        content: {contentType: conT,
+                  toType: 1,
+                  text: text,
+                  originalContentUrl: oUrl2,
+                  previewImageUrl: pIUrl2
+                 }
+      }
+
+      cjson1 = requestContent1.to_json
+      cjson2 = requestContent2.to_json
+
+      RestClient.proxy = ENV["FIXIE_URL"]
+      if(f)
+        RestClient.post(@endpoint_uri,cjson1,@request_header)
+      else
+        RestClient.post(@endpoint_uri,cjson1,@request_header)
+        RestClient.post(@endpoint_uri,cjson2,@request_header)
+      end
     end
   end
   
