@@ -95,30 +95,30 @@ class App < Sinatra::Base
 #-----------------
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result']['opType'] == @add_friend_opType)
       puts params['result'][0]['content']['params'][0]
-     # add_friend_event(params['result'][0]['content']['params'][0])
-    end
+    # add_friend_event(params['result'][0]['content']['params'][0]
 #-----------------
-    
-    params['result'].each do |msg|
-      
-      if !msg['content']['location'].nil? 
-        msg['content']['text'] = msg['content']['location']['address']
+    else
+      params['result'].each do |msg|
+        
+        if !msg['content']['location'].nil? 
+          msg['content']['text'] = msg['content']['location']['address']
+        end
+        
+        request_content = {
+          to: [msg['content']['from']],
+          toChannel: 1383378250, # Fixed  value
+          eventType: "138311608800106203", # Fixed value
+          content: {contentType: msg['content']['contentType'],
+                    toType: msg['content']['toType'],
+                    text: msg['content']['text']
+                   }
+        }
+        
+        content_json = request_content.to_json
+        
+        RestClient.proxy = ENV["FIXIE_URL"]
+        RestClient.post(@endpoint_uri, content_json,@request_header)
       end
-      
-      request_content = {
-        to: [msg['content']['from']],
-        toChannel: 1383378250, # Fixed  value
-        eventType: "138311608800106203", # Fixed value
-        content: {contentType: msg['content']['contentType'],
-                  toType: msg['content']['toType'],
-                  text: msg['content']['text']
-                 }
-      }
-     
-      content_json = request_content.to_json
-      
-      RestClient.proxy = ENV["FIXIE_URL"]
-      RestClient.post(@endpoint_uri, content_json,@request_header)
     end
     "OK"
   end
