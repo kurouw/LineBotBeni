@@ -42,11 +42,9 @@ class App < Sinatra::Base
       p img1,img2
       f = false
       if img1 == "chirashi"
-        conT = 1
         text  = "今日のチラシはないよ！"
         f = true
       else
-        conT = 2
         oUrl1 = img1
         pIUrl1 = img1
         oUrl2 = img2
@@ -57,23 +55,34 @@ class App < Sinatra::Base
         to: [toMe],
         toChannel: 1383378250, # Fixed  value
         eventType: "138311608800106203", # Fixed value
-        content: {contentType: conT,
+        content: {contentType: 1,
                   toType: 1,
                   text: text,
-                  originalContentUrl: oUrl1,
-                  previewImageUrl: pIUrl1
                  }
       }
       requestContent2 = {
         to: [toMe],
         toChannel: 1383378250, # Fixed  value
-        eventType: "138311608800106203", # Fixed value
-        content: {contentType: conT,
-                  toType: 1,
-                  text: text,
-                  originalContentUrl: oUrl2,
-                  previewImageUrl: pIUrl2
-                 }
+        eventType: "140177271400161403", # Fixed value
+        content: {
+          messageNotified: 0,
+          messages: [
+            {
+              contentType: 1,
+              text: "今日のチラシだよ！"
+            },
+            {
+              contentType: 2,
+              originalContentUrl: oUrl1,
+              previewImageUrl: pIUrl1
+            },
+            {
+              contentType: 2,
+              originalContentUrl: oUrl2,
+              previewImageUrl: pIUrl2
+            }
+          ]
+        }
       }
 
       cjson1 = requestContent1.to_json
@@ -83,7 +92,6 @@ class App < Sinatra::Base
       if(f)
         RestClient.post(Settings::ENDPOINT_URI,cjson1,Settings::REQUEST_HEANDER)
       else
-        RestClient.post(Settings::ENDPOINT_URI,cjson1,Settings::REQUEST_HEANDER)
         RestClient.post(Settings::ENDPOINT_URI,cjson2,Settings::REQUEST_HEANDER)
       end
     end
