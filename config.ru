@@ -34,12 +34,14 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 14 && Time.now.min == 55)
+    if(Time.now.hour == 15 && Time.now.min == 0)
       p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
       img1, img2 = get_images("福島","一箕町")
       p img1,img2
+      p "hoge"
+      
       f = false
       if img1 == "chirashi"
         text  = "今日のチラシはないよ！"
