@@ -34,7 +34,7 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 14 && Time.now.min == 32)
+    if(Time.now.hour == 14 && Time.now.min == 45)
       p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
@@ -69,15 +69,18 @@ class App < Sinatra::Base
           messages: [
             {
               contentType: 1,
+              toType: 1,
               text: "今日のチラシだよ！"
             },
             {
               contentType: 2,
+              toType: 1,
               originalContentUrl: oUrl1,
               previewImageUrl: pIUrl1
             },
             {
               contentType: 2,
+              toType: 1,
               originalContentUrl: oUrl2,
               previewImageUrl: pIUrl2
             }
