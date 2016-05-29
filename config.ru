@@ -26,11 +26,15 @@ class App < Sinatra::Base
 
 #start_server
   before do
+    
     @add_friend_eventType = "138311609100106403"
     @add_friend_opType = 4
     @block_friend_opType = 8
-    
-    if(Time.now.hour == 8 && Time.now.min == 0)
+
+  end
+  get '/' do
+  #  if(Time.now.hour == 8 && Time.now.min == 0)
+    if(Time.now.hour == 22 && Time.now.min == 30)
       toMe = ENV["MY_ID"]
 
       img1, img2 = get_images("福島","一箕町")
