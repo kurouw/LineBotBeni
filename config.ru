@@ -69,18 +69,15 @@ class App < Sinatra::Base
           messages: [
             {
               contentType: 1,
-              toType: 1,
               text: "今日のチラシだよ！"
             },
             {
-              contentType: 2,
-              toType: 1,
+              contentType: 2,            
               originalContentUrl: oUrl1,
               previewImageUrl: pIUrl1
             },
             {
-              contentType: 2,
-              toType: 1,
+              contentType: 2,             
               originalContentUrl: oUrl2,
               previewImageUrl: pIUrl2
             }

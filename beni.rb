@@ -66,7 +66,7 @@ def get_images(pref,shop)
 
   image = str.match(/https(.*)1.jpg/).to_s
   image2 = Marshal.load(Marshal.dump(image))
-  if !image2.nil?
+  if image.nil?
     image2[-5] = "2"
   end
 
