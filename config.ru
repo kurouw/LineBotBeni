@@ -2,7 +2,6 @@
 require 'bundler/setup'
 require 'sinatra/base'
 require 'json'
-require 'rest-client'
 require './beni.rb'
 require './const.rb'
 #require './users.rb'
@@ -114,6 +113,7 @@ class App < Sinatra::Base
     else
       p "get request"
       params['result'].each do |msg|
+        p msg
         
         if !msg['content']['location'].nil? 
           msg['content']['text'] = msg['content']['location']['address']
