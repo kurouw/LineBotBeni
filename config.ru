@@ -36,7 +36,7 @@ class App < Sinatra::Base
   get '/' do
     #  if(Time.now.hour == 8 && Time.now.min == 0)
     p Time.now.hour, Time.now.min
-    if(Time.now.hour == 22 && Time.now.min == 35)
+    if(Time.now.hour == 13 && Time.now.min == 40)
       toMe = ENV["MY_ID"]
 
       img1, img2 = get_images("福島","一箕町")
