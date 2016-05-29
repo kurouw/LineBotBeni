@@ -34,7 +34,7 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 23 && Time.now.min == 0)
+    if(Time.now.hour == 14 && Time.now.min == 32)
       p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
