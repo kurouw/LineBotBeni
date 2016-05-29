@@ -32,13 +32,15 @@ class App < Sinatra::Base
     @block_friend_opType = 8
 
   end
+  
   get '/' do
-  #  if(Time.now.hour == 8 && Time.now.min == 0)
-    if(Time.now.hour == 22 && Time.now.min == 30)
+    #  if(Time.now.hour == 8 && Time.now.min == 0)
+    p Time.now.hour, Time.now.min
+    if(Time.now.hour == 22 && Time.now.min == 35)
       toMe = ENV["MY_ID"]
 
       img1, img2 = get_images("福島","一箕町")
-      puts img1,img2
+      p img1,img2
       f = false
       if img1 == "chirashi"
         conT = 1
