@@ -15,10 +15,19 @@ class App < Sinatra::Base
       to: [toId],
       toChannel: 1383378250, # Fixed  value
       eventType: "138311608800106203", # Fixed value
-      content: {contentType: 1,
-                toType: 1,
-                text: text
-               }
+      content: {
+        messageNotified: 0,
+        messages: [
+          {
+            contentType: 1,
+            text: text1
+          },
+          {
+            contentType: 1,
+            text: text2
+          }
+        ]
+      }
     }
     send_information = add_friend_send.to_json
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
@@ -34,7 +43,7 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 4 && Time.now.min == 16)
+    if(Time.now.hour == 23 && Time.now.min == 0)
       p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
