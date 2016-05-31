@@ -18,6 +18,8 @@ class App < Sinatra::Base
     if user.nil?
       user = User.create(
         toId: toId,
+        pref: "",
+        shopName: ""
       )
       text1 = "友達追加してくれてありがとう！"
       text2 = "県名と店名を空白で区切って送信してね!"
