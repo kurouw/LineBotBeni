@@ -13,7 +13,7 @@ class App < Sinatra::Base
     add_friend_send = {
       to: [toId],
       toChannel: 1383378250, # Fixed  value
-      eventType: "138311608800106203", # Fixed value
+      eventType: "140177271400161403", # Fixed value
       content: {
         messageNotified: 0,
         messages: [
