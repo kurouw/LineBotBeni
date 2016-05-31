@@ -4,9 +4,10 @@ class User
   field :pref, type: String
   field :shopName, type: String
 
-  validates :toId, presence: true
-  validates :toId, unqueness: true
-  validates :pref, presence: true
-  validates :shopName, presence: true
+  
+ # validates :toId, presence: true
+  #validates :toId, unqueness: true
+  #validates :pref, presence: true
+  #validates :shopName, presence: true
 
 end
