@@ -41,7 +41,7 @@ class App < Sinatra::Base
           ]
         }
       }
-      user.uqdate_attrributes(:pref => "福島県",:shopName => "一箕町")
+      user.uqdate_attributes(:pref => "福島県",:shopName => "一箕町")
 
       send_information = add_friend_send.to_json
       RestClient.proxy = ENV["FIXIE_URL"]
