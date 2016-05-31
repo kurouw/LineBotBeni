@@ -18,35 +18,33 @@ class App < Sinatra::Base
     if user.nil?
       user = User.create(
         toId: toId,
-        pref: "福島県",
-        shopName: "一箕町"
       )
-    end
-
-    
-    text1 = "友達追加してくれてありがとう！"
-    text2 = "県名と店名を空白で区切って送信してね!"
-    add_friend_send = {
-      to: [toId],
-      toChannel: 1383378250, # Fixed  value
-      eventType: "140177271400161403", # Fixed value
-      content: {
-        messageNotified: 0,
-        messages: [
-          {
-            contentType: 1,
-            text: text1
-          },
-          {
-            contentType: 1,
-            text: text2
-          }
-        ]
+      text1 = "友達追加してくれてありがとう！"
+      text2 = "県名と店名を空白で区切って送信してね!"
+      add_friend_send = {
+        to: [toId],
+        toChannel: 1383378250, # Fixed  value
+        eventType: "140177271400161403", # Fixed value
+        content: {
+          messageNotified: 0,
+          messages: [
+            {
+              contentType: 1,
+              text: text1
+            },
+            {
+              contentType: 1,
+              text: text2
+            }
+          ]
+        }
       }
-    }
-    send_information = add_friend_send.to_json
-    RestClient.proxy = ENV["FIXIE_URL"]
-    RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
+      user.uqdate_attrributes(:pref => "福島県",:shopName => "一箕町")
+
+      send_information = add_friend_send.to_json
+      RestClient.proxy = ENV["FIXIE_URL"]
+      RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
+    end
   end
 
 #start_server
