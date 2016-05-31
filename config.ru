@@ -43,7 +43,7 @@ class App < Sinatra::Base
     end
   end
 
-  def create_user(pref,shop,toId)    
+   def create_user(pref,shop,toId)    
           user = User.create(
             toId: toId,
             pref: pref,
@@ -74,10 +74,12 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 23 && Time.now.min == 0)
+    if(Time.now.hour == 17 && Time.now.min == 35)
       user = User.first
       toMe = user.toId
-      img1, img2 = get_images(user.pref,user.shopName)
+      img1 = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_001.jpg"
+      img2 = "https://pv.orikomio.com/flyer/000011/000012/0037/4598/assets/PageImage_002.jpg"
+      #get_images(user.pref,user.shopName)
       
       f = false
       if !img1.nil?
