@@ -18,8 +18,6 @@ class App < Sinatra::Base
     if user.nil?
       user = User.create(
         toId: toId,
-        pref: "",
-        shopName: ""
       )
       text1 = "友達追加してくれてありがとう！"
       text2 = "県名と店名を空白で区切って送信してね!"
@@ -41,7 +39,7 @@ class App < Sinatra::Base
           ]
         }
       }
-      user.uqdate_attributes(:pref => "福島県",:shopName => "一箕町")
+      user.add_to__set(:pref => "福島県",:shopName => "一箕町")
 
       send_information = add_friend_send.to_json
       RestClient.proxy = ENV["FIXIE_URL"]
