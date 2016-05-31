@@ -4,7 +4,6 @@ require 'sinatra/base'
 require 'json'
 require './beni.rb'
 require './const.rb'
-#require './users.rb'
 
 class App < Sinatra::Base
 #add_friend
@@ -116,6 +115,7 @@ class App < Sinatra::Base
 
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
+      p  params['result'][0]['content']['params'][0]
       add_friend_event(params['result'][0]['content']['params'][0])
       
     elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
