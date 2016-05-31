@@ -14,12 +14,9 @@ class App < Sinatra::Base
     user = User.where(
       toId: toId
     ).first
-
+    
     if user.nil?
-      user = User.create(
-        toId: toId,
-      )
-      text1 = "友達追加してくれてありがとう！"
+     text1 = "友達追加してくれてありがとう！"
       text2 = "県名と店名を空白で区切って送信してね!"
       add_friend_send = {
         to: [toId],
@@ -47,6 +44,27 @@ class App < Sinatra::Base
     end
   end
 
+  def create_user(pref,shop,toId)    
+          user = User.create(
+            toId: toId,
+            pref: pref,
+            shopName: shop
+          )
+          
+          requestContent = {
+            to: [toId],
+            toChannel: 1383378250, # Fixed  value
+            eventType: "138311608800106203", # Fixed value
+            content: {contentType: 1,
+                      toType: 1,
+                      text: "登録が完了したよ！",
+                     }
+          }
+          request_content_json = requestContent.to_json
+          RestClient.proxy = ENV["FIXIE_URL"]
+          RestClient.post(Settings::ENDPOINT_URI,request_content_json,Settings::REQUEST_HEANDER)
+  end
+
 #start_server
   before do
     
@@ -59,7 +77,6 @@ class App < Sinatra::Base
   get '/' do
     if(Time.now.hour == 23 && Time.now.min == 0)
       toMe = ENV["MY_ID"]
-
       img1, img2 = get_images("福島","一箕町")
       
       f = false
@@ -72,7 +89,7 @@ class App < Sinatra::Base
         oUrl2 = img2
         pIUrl2 = img2
       end
-
+ 
       requestContent1 = {
         to: [toMe],
         toChannel: 1383378250, # Fixed  value
@@ -138,6 +155,19 @@ class App < Sinatra::Base
         
         if !msg['content']['location'].nil? 
           msg['content']['text'] = msg['content']['location']['address']
+        end
+        users = User.all
+        p users
+        
+        user = User.where(
+          toId: toId
+        ).first
+        if user.nil?
+          info = msg['content']['text']
+          pref,shop = info.split(" ")
+          create_user(pref,shop,msg['content']['from'])
+        end
+          
         end
         
         request_content = {
