@@ -166,6 +166,7 @@ class App < Sinatra::Base
           info = msg['content']['text']
           pref,shop = info.split(" ")
           create_user(pref,shop, msg['content']['from'])
+          msg['content']['text'] = "" 
         end
                   
         request_content = {
