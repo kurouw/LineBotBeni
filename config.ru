@@ -36,7 +36,6 @@ class App < Sinatra::Base
           ]
         }
       }
-      user.add_to__set(:pref => "福島県",:shopName => "一箕町")
 
       send_information = add_friend_send.to_json
       RestClient.proxy = ENV["FIXIE_URL"]
