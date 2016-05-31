@@ -160,12 +160,12 @@ class App < Sinatra::Base
         p users
         
         user = User.where(
-          toId: toId
+          toId: msg['content']['from']
         ).first
         if user.nil?
           info = msg['content']['text']
           pref,shop = info.split(" ")
-          create_user(pref,shop,msg['content']['from'])
+          create_user(pref,shop, msg['content']['from'])
         end
                   
         request_content = {
