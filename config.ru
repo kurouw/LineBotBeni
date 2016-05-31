@@ -156,6 +156,7 @@ class App < Sinatra::Base
         if !msg['content']['location'].nil? 
           msg['content']['text'] = msg['content']['location']['address']
         end
+        
         users = User.all
         p users
         
@@ -167,9 +168,7 @@ class App < Sinatra::Base
           pref,shop = info.split(" ")
           create_user(pref,shop,msg['content']['from'])
         end
-          
-        end
-        
+                  
         request_content = {
           to: [msg['content']['from']],
           toChannel: 1383378250, # Fixed  value
