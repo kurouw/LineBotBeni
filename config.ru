@@ -74,7 +74,7 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 11 && Time.now.min == 19)
+    if(Time.now.hour == 23 && Time.now.min == 0)
       user = User.first
       toMe = user.toId
       img1, img2 = get_images(user.pref,user.shopName)
