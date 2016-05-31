@@ -75,8 +75,9 @@ class App < Sinatra::Base
   
   get '/' do
     if(Time.now.hour == 23 && Time.now.min == 0)
-      toMe = ENV["MY_ID"]
-      img1, img2 = get_images("福島","一箕町")
+      user = User.first
+      toMe = user.toId
+      img1, img2 = get_images(user.pref,user.shopName)
       
       f = false
       if !img1.nil?
@@ -155,9 +156,6 @@ class App < Sinatra::Base
         if !msg['content']['location'].nil? 
           msg['content']['text'] = msg['content']['location']['address']
         end
-        
-        users = User.first
-        p users.pref
         
         user = User.where(
           toId: msg['content']['from']
