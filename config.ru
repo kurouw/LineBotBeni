@@ -9,7 +9,8 @@ require './const.rb'
 class App < Sinatra::Base
 #add_friend
   def add_friend_event(toId)
-    text = "友達追加してくれてありがとう！"
+    text1 = "友達追加してくれてありがとう！"
+    text2 = "県名と店名を空白で区切って送信してね!"
     add_friend_send = {
       to: [toId],
       toChannel: 1383378250, # Fixed  value
@@ -33,7 +34,7 @@ class App < Sinatra::Base
   end
   
   get '/' do
-    if(Time.now.hour == 23 && Time.now.min == 0)
+    if(Time.now.hour == 4 && Time.now.min == 16)
       p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
