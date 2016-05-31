@@ -30,6 +30,7 @@ class App < Sinatra::Base
       }
     }
     send_information = add_friend_send.to_json
+    RestClient.proxy = ENV["FIXIE_URL"]
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
   end
 
