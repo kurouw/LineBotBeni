@@ -157,7 +157,7 @@ class App < Sinatra::Base
         end
         
         users = User.first
-        p users
+        p users.pref
         
         user = User.where(
           toId: msg['content']['from']
