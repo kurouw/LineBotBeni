@@ -156,7 +156,7 @@ class App < Sinatra::Base
           msg['content']['text'] = msg['content']['location']['address']
         end
         
-        users = User.find("toId")
+        users = User.all
         p users
         
         user = User.where(
