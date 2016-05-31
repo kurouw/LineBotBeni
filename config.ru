@@ -4,10 +4,26 @@ require 'sinatra/base'
 require 'json'
 require './beni.rb'
 require './const.rb'
+require './users.rb'
+Mongoid.load!("./mongoid.yml")
 
 class App < Sinatra::Base
 #add_friend
   def add_friend_event(toId)
+
+    user = User.where(
+      toId: toId
+    ).first
+
+    if user.nil?
+      user = User.create(
+        toId: toId,
+        pref: "福島県",
+        shopName: "一箕町"
+      )
+    end
+
+    
     text1 = "友達追加してくれてありがとう！"
     text2 = "県名と店名を空白で区切って送信してね!"
     add_friend_send = {
@@ -28,7 +44,6 @@ class App < Sinatra::Base
         ]
       }
     }
-    p add_friend_send
     send_information = add_friend_send.to_json
     RestClient.proxy = ENV["FIXIE_URL"]
     RestClient.post(Settings::ENDPOINT_URI,send_information,Settings::REQUEST_HEANDER)
@@ -45,12 +60,9 @@ class App < Sinatra::Base
   
   get '/' do
     if(Time.now.hour == 23 && Time.now.min == 0)
-      p Time.now.hour, Time.now.min
       toMe = ENV["MY_ID"]
 
       img1, img2 = get_images("福島","一箕町")
-      p img1,img2
-
       
       f = false
       if !img1.nil?
@@ -116,7 +128,6 @@ class App < Sinatra::Base
 
     if (params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @add_friend_opType)
       p "add_friend_event or cancel_block"
-      p  params['result'][0]['content']['params'][0]
       add_friend_event(params['result'][0]['content']['params'][0])
       
     elsif(params['result'][0]['eventType'] == @add_friend_eventType && params['result'][0]['content']['opType'] == @block_friend_opType)
